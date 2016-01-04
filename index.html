@@ -1,0 +1,106 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <style>
+        .btn-file {
+        position: relative;
+        overflow: hidden;
+        }
+        .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script>
+        function readURL(input) {
+        var trs;
+        for(var i =0; i< input.files.length; i++){
+            if (input.files[i]) {
+                var reader = new FileReader();
+                var that = input.files[i];
+                reader.fileName = input.files[i].name;
+                reader.size = input.files[i].size;
+                reader.onload = function (e) {
+                    console.log('=====e===========',that);
+                    imag = e.target.result; 
+                    var trs = '<tr class="template-upload fade in">'+
+                        '        <td>'+
+                        '            <span class="preview"><img width="80" height="44" src="'+e.target.result+'"></span>'+
+                        '        </td>'+
+                        '        <td>'+
+                        '            <p class="name">'+e.target.fileName+'</p>'+
+                        '        </td>'+
+                        '        <td>'+
+                        '            <p class="size">'+Number(Math.round(e.target.size/1024+'e2')+'e-2') +' KB</p>'+
+                        '        </td>'+
+                        '        <td>'+
+                        '            '+
+                        '                <a class="btn btn-primary start">'+
+                        '                    <i class="glyphicon glyphicon-upload"></i>'+
+                        '                    <span>Start</span>'+
+                        '                </a>'+
+                        '            '+
+                        '            '+
+                        '                <a class="btn btn-warning cancel" onclick="$(this).closest(\'tr\').remove();">'+
+                        '                    <i class="glyphicon glyphicon-ban-circle"></i>'+
+                        '                    <span>Cancel</span>'+
+                        '                </a>'+
+                        '            '+
+                        '        </td>'+
+                        '    </tr>';
+                    $('#myTable').append(trs);
+                    
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }    
+    }
+    $( document ).ready(function() {
+        $("#imgInp").change(function(){
+            removeAll();
+            readURL(this);
+        });
+    });
+    function removeAll(){
+        $('#myTable tr').remove();
+    }
+    
+    </script>
+    </head>
+    <body>
+    <form id="form1">
+        <span class="btn btn-success  btn-file">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add files...</span>
+            <input type='file' id="imgInp" multiple='true'/>
+        </span>
+        
+        <a type="submit" class="btn btn-primary start">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start upload</span>
+        </a>
+        <a type="reset" class="btn btn-warning cancel" onclick="removeAll();">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel upload</span>
+        </a>
+        <a type="button" class="btn btn-danger delete">
+            <i class="glyphicon glyphicon-trash"></i>
+            <span>Delete</span>
+        </a>
+        <table id="myTable" class="table table-striped table-hover">
+        </table>
+    </form>
+    </body>
+</html>
