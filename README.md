@@ -1,3 +1,4 @@
 # multifileupload
 multifileupload and preview before uploading
-New README
+
+[multifileupload  Demo](http://ratanpaul.github.io/multifileupload/)
