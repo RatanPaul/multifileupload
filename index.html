@@ -33,7 +33,7 @@
                 reader.fileName = input.files[i].name;
                 reader.size = input.files[i].size;
                 reader.onload = function (e) {
-                    console.log('=====e===========',that);
+                    console.log('=====e===========',e.target.result);
                     imag = e.target.result; 
                     var trs = '<tr class="template-upload fade in">'+
                         '        <td>'+
